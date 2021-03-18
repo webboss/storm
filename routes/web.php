@@ -17,8 +17,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::namespace('App\Http\Controllers\Blog')->prefix('blog')
-    ->group(function (){
-        Route::resource('posts', PostController::class)->names('blog.posts');
-    });
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth'])->name('dashboard');
 
+require __DIR__.'/auth.php';
