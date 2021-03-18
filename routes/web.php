@@ -22,3 +22,15 @@ Route::get('/dashboard', function () {
 })->middleware(['auth'])->name('dashboard');
 
 require __DIR__.'/auth.php';
+
+#admin blog
+$groupData = [
+  'namespace'   =>  'App\Http\Controllers\Blog\Admin',
+  'prefix'      =>  'admin/blog'
+];
+Route::group($groupData, function (){
+   $methods = ['index', 'edit', 'store', 'update', 'create'];
+   Route::resource('categories', 'CategoryController')
+       ->only($methods)
+       ->names('blog.admin.categories');
+});
