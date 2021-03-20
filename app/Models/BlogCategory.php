@@ -9,4 +9,5 @@ class BlogCategory extends Model
 {
     use HasFactory;
 
+    protected $guarded = [];
 }

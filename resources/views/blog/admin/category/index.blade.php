@@ -1,12 +1,13 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Блог') }}
-        </h2>
+        <ul class="uk-breadcrumb">
+            <li><a href="{{route('dashboard')}}">Dashboard</a></li>
+            <li><span> {{ __('Категории блога') }}</span></li>
+        </ul>
     </x-slot>
 
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+    <x-slot name="body">
+        <div class="py-12">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 bg-white border-b border-gray-200">
 
@@ -29,15 +30,9 @@
                         @endforeach
                         </tbody>
                     </table>
-                    <ul class="uk-pagination" uk-margin>
-                        <li><a href="#"><span uk-pagination-previous></span></a></li>
-                        <li><a href="#">1</a></li>
-                        <li class="uk-disabled"><span>...</span></li>
-                        <li><a href="#">6</a></li>
-                        <li class="uk-active"><span>7</span></li>
-                        <li><a href="#">8</a></li>
-                        <li><a href="#"><span uk-pagination-next></span></a></li>
-                    </ul>
+                    @if($paginator->total() > $paginator->count())
+                        {{$paginator->links()}}
+                    @endif
                     <div class="uk-overflow-auto">
                         <table class="uk-table uk-table-hover uk-table-middle uk-table-divider">
                             <thead>
@@ -92,6 +87,6 @@
                 </div>
             </div>
         </div>
-    </div>
+    </x-slot>
 
 </x-app-layout>
