@@ -16,8 +16,13 @@ mix.js('resources/js/app.js', 'public/js')
     require('postcss-import'),
     require('tailwindcss'),
     require('autoprefixer'),
-]);
-mix.sass('resources/sass/app.sass', 'public/css')
-    .sass('resources/sass/admin.sass', 'public/css/admin');
+]).postCss('resources/css/admin.css', 'public/css', [
+        require('postcss-import'),
+        require('tailwindcss'),
+        require('autoprefixer'),
+    ]);
 
-mix.browserSync('shop.local');
+mix.sass('resources/sass/app.sass', 'public/css')
+    .sass('resources/sass/admin.sass', 'public/css',);
+
+mix.browserSync('blog.local');

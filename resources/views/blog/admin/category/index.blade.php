@@ -10,7 +10,7 @@
         <div class="py-12">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 bg-white border-b border-gray-200">
-
+<a href="{{route('blog.admin.categories.create')}}" class="uk-button uk-button-primary">{{ __('Создать Категорию') }}</a>
                     <table class="table-auto uk-table uk-table-striped">
                         <thead>
                         <tr>

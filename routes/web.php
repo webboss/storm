@@ -32,5 +32,24 @@ Route::group($groupData, function (){
    $methods = ['index', 'edit', 'store', 'update', 'create'];
    Route::resource('categories', 'CategoryController')
        ->only($methods)
+       ->middleware(['auth'])
        ->names('blog.admin.categories');
+
+   Route::resource('posts', 'PostController')
+       ->except(['show'])
+       ->middleware(['auth'])
+       ->names('blog.admin.posts');
+});
+
+#admin conference section
+$groupData = [
+    'namespace'   =>  'App\Http\Controllers\Conference\Admin',
+    'prefix'      =>  'admin/conference'
+];
+Route::group($groupData, function (){
+    $methods = ['index', 'edit', 'store', 'update', 'create'];
+    Route::resource('sections', 'SectionController')
+        ->only($methods)
+        ->middleware(['auth'])
+        ->names('conference.admin.sections');
 });

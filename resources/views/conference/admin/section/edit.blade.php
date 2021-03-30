@@ -44,7 +44,7 @@
                                             <option
                                                 value="{{$optionCategory->id}}"
                                                 @if($optionCategory->id == $item->parent_id) selected="selected" @endif;
-                                            >{{$optionCategory->title}}</option>
+                                            >{{$optionCategory->id}}- {{$optionCategory->title}}</option>
                                         @endforeach
                                     </select>
                                 </div>

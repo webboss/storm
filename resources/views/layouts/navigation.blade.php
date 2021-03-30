@@ -18,6 +18,10 @@
                     <x-nav-link :href="route('blog.admin.categories.index')" :active="request()->routeIs('blog.admin.categories.index')">
                         {{ __('Блог') }}
                     </x-nav-link>
+                    <x-nav-link :href="route('conference.admin.sections.index')" :active="request()->routeIs('conference.admin.sections.index')">
+                        {{ __('Тематика конференції') }}
+                    </x-nav-link>
+
                 </div>
             </div>
 

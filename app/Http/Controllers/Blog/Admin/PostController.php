@@ -6,7 +6,7 @@ namespace App\Http\Controllers\Blog\Admin;
 use App\Http\Requests\BlogCategoryCreateRequest;
 use App\Http\Requests\BlogCategoryUpdateRequest;
 use App\Models\BlogCategory;
-use App\Repositories\BlogCategoryRepository;
+use App\Repositories\BlogPostRepository;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Redirector;
@@ -16,18 +16,18 @@ use Illuminate\Support\Str;
 use function React\Promise\all;
 
 
-class CategoryController extends BaseController
+class PostController extends BaseController
 {
     /**
-     * @var BlogCategoryRepository
+     * @var BlogPostRepository
      */
 
-    private BlogCategoryRepository $blogCategoryRepository;
+    private BlogPostRepository $blogCategoryRepository;
 
     public function __construct()
     {
         parent::__constructor();
-        $this->blogCategoryRepository = app(BlogCategoryRepository::class);
+        $this->blogCategoryRepository = app(BlogPostRepository::class);
     }
     /**
      * Display a listing of the resource.
@@ -36,9 +36,9 @@ class CategoryController extends BaseController
      */
     public function index():View
     {
-        //$paginator = BlogCategory::paginate(5);
-        $paginator = $this->blogCategoryRepository->getAllWithPaginate(5);
-        return view('blog.admin.category.index', compact('paginator'));
+        $paginator = BlogCategory::paginate(5);
+       // $paginator = $this->BlogPostRepository->getAllWithPaginate(5);
+        return view('blog.admin.post.index', compact('paginator'));
     }
 
     /**
@@ -49,7 +49,7 @@ class CategoryController extends BaseController
     public function create(): View
     {
         $item = new BlogCategory();
-        $categoryList = $this->blogCategoryRepository->getForComboBox();
+        $categoryList = $this->BlogPostRepository->getForComboBox();
 
         return view('blog.admin.category.create', compact('item', 'categoryList'));
     }
@@ -98,8 +98,8 @@ class CategoryController extends BaseController
      */
     public function edit(int $id):View
     {
-        $item = $this->blogCategoryRepository->getEdit($id);
-        $categoryList = $this->blogCategoryRepository->getForComboBox();
+        $item = $this->BlogPostRepository->getEdit($id);
+        $categoryList = $this->BlogPostRepository->getForComboBox();
         //dd(collect($item)->pluck('id'));
 
         return view('blog.admin.category.edit',
@@ -117,7 +117,7 @@ class CategoryController extends BaseController
     public function update(BlogCategoryUpdateRequest $request, int $id)
     {
 
-        $item = $this->blogCategoryRepository->getEdit($id);
+        $item = $this->BlogPostRepository->getEdit($id);
         if(empty($item))
         {
             return back()
@@ -131,9 +131,9 @@ class CategoryController extends BaseController
 
         if($result)
         {
-         return redirect()
-            ->route('blog.admin.categories.edit', $item->id)
-            ->with(['success' => 'yes update']);
+            return redirect()
+                ->route('blog.admin.categories.edit', $item->id)
+                ->with(['success' => 'yes update']);
         } else {
             return back()
                 ->withErrors(['msg' => "message arror"])
